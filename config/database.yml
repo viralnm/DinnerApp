@@ -1,0 +1,16 @@
+development:
+  adapter: mysql2
+  host: localhost
+  database: DinnerApp_development
+  pool: 8
+  username: root
+  password: Oneclick1@
+
+
+production:
+  adapter: mysql2
+  host: localhost
+  database: DinnerApp_production
+  pool: 8
+  username: root
+  password: Oneclick1@
