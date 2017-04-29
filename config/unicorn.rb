@@ -4,7 +4,7 @@ stderr_path "/home/ubuntu/apps/DinnerApp/log/unicorn.stderr.log"
 pid   "#{app_path}/tmp/pids/unicorn.pid"
 worker_processes Integer(ENV["WEB_CONCURRENCY"] || 4)
 
-listen "/tmp/unicorn.advisor.sock", :backlog => 64
+listen "/tmp/unicorn.dinnerapp.sock", :backlog => 64
 
 # use correct Gemfile on restarts
 before_exec do |server|
