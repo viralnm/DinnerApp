@@ -10,7 +10,7 @@ development:
 production:
   adapter: mysql2
   host: localhost
-  database: DinnerApp_production
+  database: DinnerApp_development
   pool: 8
   username: root
   password: Oneclick1@
