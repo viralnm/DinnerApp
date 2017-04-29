@@ -25,6 +25,9 @@ gem 'rails_admin'
 gem 'opro'
 
 
+gem 'unicorn'
+# security
+ gem "brakeman", :require => false
 
 
 # Use jquery as the JavaScript library

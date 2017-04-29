@@ -10,7 +10,7 @@ module Api
 					if @email.blank?
 						@user = User.create(user_params)
 							if @user.save
-								Opro::Oauth::ClientApp.create_with_user_and_name(@user, @user.first_name + "DinnerApp")
+								Opro::Oauth::ClientApp.create_with_user_and_name(@user, @user.first_name+ @user.id.to_s + "DinnerApp")
 								@token = Opro::Oauth::AuthGrant.where(devise_token: params[:user][:devise_token])
 						    if !@token.blank?
 						      @token.destroy_all
@@ -47,7 +47,7 @@ module Api
 					if @f_user.blank?
 						@user = User.create(user_params)
 						if @user.save
-							Opro::Oauth::ClientApp.create_with_user_and_name(@user, @user.first_name + "DinnerApp")
+							Opro::Oauth::ClientApp.create_with_user_and_name(@user, @user.first_name+ @user.id.to_s + "DinnerApp")
 							@token = Opro::Oauth::AuthGrant.where(devise_token: params[:user][:devise_token])
 					    if !@token.blank?
 					      @token.destroy_all
@@ -98,7 +98,7 @@ module Api
 					if @f_user.blank?
 						@user = User.create(user_params)
 						if @user.save
-							Opro::Oauth::ClientApp.create_with_user_and_name(@user, @user.first_name + "DinnerApp")
+							Opro::Oauth::ClientApp.create_with_user_and_name(@user, @user.first_name+ @user.id.to_s + "DinnerApp")
 							@token = Opro::Oauth::AuthGrant.where(devise_token: params[:user][:devise_token])
 					    if !@token.blank?
 					      @token.destroy_all
@@ -127,9 +127,9 @@ module Api
 					  end
 					else
 						@token = Opro::Oauth::AuthGrant.where(devise_token: params[:user][:devise_token])
-					    if !@token.blank?
-					      @token.destroy_all
-					    end
+				    if !@token.blank?
+				      @token.destroy_all
+				    end
 					   application = Opro::Oauth::ClientApp.where(user_id: @f_user.id).first
 					   auth_grant = Opro::Oauth::AuthGrant.find_or_create_by_user_app(@f_user, application, params[:user][:devise_token], params[:devise_type])
 					   render :json => { action: 'login',
