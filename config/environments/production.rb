@@ -1,5 +1,5 @@
 Rails.application.configure do
-  ## Code is not reloaded between requests.
+  # Code is not reloaded between requests.
 config.cache_classes = true
 
 # Eager load code on boot. This eager loads most of Rails and
@@ -19,7 +19,7 @@ config.action_controller.perform_caching = true
 
 # Disable Rails's static asset server (Apache or nginx will already do this).
 config.serve_static_assets = true
-#config.assets.compile = true
+config.assets.compile = false
 
 config.assets.precompile =  ['*.js', '*.css', '*.css.erb', '*.css.scss'] 
 # Compress JavaScripts and CSS.

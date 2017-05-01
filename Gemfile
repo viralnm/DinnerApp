@@ -6,7 +6,7 @@ gem 'rails', '4.2.6'
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
 # Use SCSS for stylesheets
-
+gem 'rubocop', require: false
 # Use Uglifier as compressor for JavaScript assets
 
 # Use CoffeeScript for .coffee ass# See https://github.com/rails/execjs#readme for more supported runtimes
@@ -36,15 +36,17 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-gem 'bootstrap-wysihtml5-rails'
 
+gem "therubyracer"
+gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+gem "twitter-bootstrap-rails"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
 gem 'font-awesome-rails', '~> 4.1.0.0'
-gem "twitter-bootstrap-rails", "~> 2.2.1"
+# gem "twitter-bootstrap-rails"
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 group :assets do
