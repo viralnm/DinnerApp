@@ -10,7 +10,7 @@ gem 'rails', '4.2.6'
 # Use Uglifier as compressor for JavaScript assets
 
 # Use CoffeeScript for .coffee ass# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
+gem 'therubyracer', platforms: :ruby
 gem 'mysql2'
 
 gem "rest-client"
