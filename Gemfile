@@ -36,6 +36,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'bootstrap-wysihtml5-rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -49,7 +50,7 @@ gem "twitter-bootstrap-rails", "~> 2.2.1"
 group :assets do
 	gem 'sass-rails', '~> 5.0'
   gem 'coffee-rails', '~> 4.1.0'
-  
+
   gem 'uglifier', '>= 1.0.3'
   gem 'fancybox-rails'
 end
