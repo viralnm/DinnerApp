@@ -48,6 +48,12 @@ gem 'font-awesome-rails', '~> 4.1.0.0'
 gem "twitter-bootstrap-rails", "~> 2.2.1"
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+group :assets do
+  gem 'sass-rails',   '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.1'
+  gem 'uglifier', '>= 1.0.3'
+  gem 'fancybox-rails'
+end
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
