@@ -1,4 +1,5 @@
-# Code is not reloaded between requests.
+Rails.application.configure do
+  ## Code is not reloaded between requests.
 config.cache_classes = true
 
 # Eager load code on boot. This eager loads most of Rails and
@@ -36,3 +37,4 @@ config.assets.digest = true
 
 # Version of your assets, change this if you want to expire all your assets.
 config.assets.version = '1.0'
+end
