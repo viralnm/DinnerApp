@@ -2,6 +2,8 @@ RailsAdmin.config do |config|
 
   ### Popular gems integration
 
+  # config.site_title = "My Default Site Title"
+
   ## == Devise ==
   config.authenticate_with do
     warden.authenticate! scope: :admin
@@ -27,7 +29,9 @@ config.included_models = [ User, Admin ]
   config.actions do
     dashboard                     # mandatory
     index                         # mandatory
-    new
+    new do
+      except ['Admin']
+    end
     export
     bulk_delete
     show
