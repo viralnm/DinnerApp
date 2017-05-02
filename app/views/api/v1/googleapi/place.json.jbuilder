@@ -19,6 +19,7 @@ json.results do
 				if !res['photos'].blank?
 					json.array! res['photos'].each do |ph|
 						json.photo_url "https://maps.googleapis.com/maps/api/place/photo?maxwidth="+ph['width'].to_s+"&photoreference="+ph['photo_reference']+"&key="+@key.to_s
+						json.photoreference ph['photo_reference']
 					end
 				else
 					json.array! res['photos']
