@@ -29,7 +29,7 @@ class Opro::Oauth::TokenController < OproController
                               expires_in:    auth_grant.expires_in, 
                               clien_id: application.app_id,
                               client_secret: application.app_secret, userdetails:
-                             { user_id: @user.id, firstname: @user.first_name,lastname: @user.last_name,email: @user.email} }
+                             { user_id: @user.id, firstname: @user.first_name,lastname: @user.last_name,email: @user.email,photo: @user.photo.url} }
       else
         if params[:password]
           render :json => { action: 'login',

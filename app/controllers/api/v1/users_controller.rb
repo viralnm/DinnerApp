@@ -3,7 +3,7 @@ module Api
 		class UsersController < Api::BaseController
 		  skip_before_filter :authenticate_user!, :only => [:create]
 		  # before_filter :authenticate_on_create, :only => [:create]
-		  skip_before_action :verify_authenticity_token, :only => [:create]
+		  skip_before_action :verify_authenticity_token, :only => [:create,:logout]
 			def create
 				if params[:user][:register_via] == "Manual"
 					@email = User.where(email: params[:user][:email], register_via: "Manual")
@@ -27,7 +27,7 @@ module Api
 	                            expires_in:    auth_grant.expires_in, 
 	                            clien_id: application.app_id,
 	                            client_secret: application.app_secret, userdetails:
-	                           { user_id: @user.id, firstname: @user.first_name,lastname: @user.last_name,email: @user.email} }
+	                           { user_id: @user.id, firstname: @user.first_name,lastname: @user.last_name,email: @user.email, photo: @user.photo.url} }
 							else 
 								respond_to do |format|
 									format.json { render :json => @user.errors }
@@ -64,7 +64,7 @@ module Api
                             expires_in:    auth_grant.expires_in, 
                             clien_id: application.app_id,
                             client_secret: application.app_secret, userdetails:
-                           { user_id: @user.id, firstname: @user.first_name,lastname: @user.last_name,email: @user.email} }
+                           { user_id: @user.id, firstname: @user.first_name,lastname: @user.last_name,email: @user.email, photo: @user.photo.url,photo_url: @user.photo_url} }
 					  else
 					  	respond_to do |format|
 						
@@ -91,7 +91,7 @@ module Api
                             expires_in:    auth_grant.expires_in, 
                             clien_id: application.app_id,
                             client_secret: application.app_secret, userdetails:
-                           { user_id: @f_user.id, firstname: @f_user.first_name,lastname: @f_user.last_name,email: @f_user.email} }
+                           { user_id: @f_user.id, firstname: @f_user.first_name,lastname: @f_user.last_name,email: @f_user.email, photo: @f_user.photo.url,photo_url: @f_user.photo_url} }
 					end
 				elsif params[:user][:register_via] == "Google"
 					@f_user = User.where(google_id: params[:user][:google_id], devise_token: params[:user][:devise_token]).first
@@ -115,7 +115,7 @@ module Api
                             expires_in:    auth_grant.expires_in, 
                             clien_id: application.app_id,
                             client_secret: application.app_secret, userdetails:
-                           { user_id: @user.id, firstname: @user.first_name,lastname: @user.last_name,email: @user.email} }
+                           { user_id: @user.id, firstname: @user.first_name,lastname: @user.last_name,email: @user.email, photo: @user.photo.url,photo_url: @user.photo_url} }
 					  else
 					  	respond_to do |format|
 						
@@ -142,7 +142,7 @@ module Api
                             expires_in:    auth_grant.expires_in, 
                             clien_id: application.app_id,
                             client_secret: application.app_secret, userdetails:
-                           { user_id: @f_user.id, firstname: @f_user.first_name,lastname: @f_user.last_name,email: @f_user.email} }
+                           { user_id: @f_user.id, firstname: @f_user.first_name,lastname: @f_user.last_name,email: @f_user.email, photo: @f_user.photo.url,photo_url: @f_user.photo_url} }
 					end
 				else
 					respond_to do |format|
@@ -154,6 +154,25 @@ module Api
 					end
 				end
 			end	
+
+			def logout
+			  	@token = Opro::Oauth::AuthGrant.where(access_token: params[:access_token])
+			  	if !@token.blank?
+			  		@token.destroy_all
+			  		respond_to do |format|
+			  			format.json{ render :json => { action: 'logout',
+			                        							response: 'true',
+			                        							msg: 'logout Successfully '} }
+			      end
+			  	else
+			  		respond_to do |format|
+			  			format.json{ render :json => { action: 'logout',
+			                        response: 'false',
+			                        msg: 'wrong access_token',
+			                        error_code: '205'} }
+			      end
+			    end
+			end
 
 			private
 

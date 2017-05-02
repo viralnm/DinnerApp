@@ -38,12 +38,18 @@ GEM
       tzinfo (~> 1.1)
     arel (6.0.4)
     ast (2.3.0)
+    av (0.9.0)
+      cocaine (~> 0.5.3)
     bcrypt (3.1.11)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     brakeman (3.6.1)
     builder (3.2.3)
     byebug (9.0.6)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
+    cocaine (0.5.5)
+      climate_control (>= 0.0.3, < 1.0)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.1.x)
@@ -117,6 +123,17 @@ GEM
       kramdown
       rails (>= 3.1.0)
     orm_adapter (0.5.0)
+    paperclip (3.5.4)
+      activemodel (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      cocaine (~> 0.5.3)
+      mime-types
+    paperclip-av-transcoder (0.6.4)
+      av (~> 0.9.0)
+      paperclip (>= 2.5.2)
+    paperclip-ffmpeg (1.2.0)
+      paperclip (>= 2.5.2)
+      rails
     parser (2.4.0.0)
       ast (~> 2.2)
     powerpack (0.1.1)
@@ -252,6 +269,9 @@ DEPENDENCIES
   mysql2
   nokogiri (~> 1.6.1)
   opro
+  paperclip (~> 3.5.2)
+  paperclip-av-transcoder
+  paperclip-ffmpeg
   rails (= 4.2.6)
   rails_admin
   responders

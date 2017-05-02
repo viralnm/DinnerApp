@@ -13,7 +13,11 @@ Rails.application.routes.draw do
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
       get  '/place'      => "googleapi#place"
-      resources :users
+      resources :users do
+        collection do
+            post :logout
+          end
+      end
     end
   end
 

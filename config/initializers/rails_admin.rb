@@ -11,6 +11,7 @@ RailsAdmin.config do |config|
   ## == Cancan ==
   # config.authorize_with :cancan
 
+
   ## == Pundit ==
   # config.authorize_with :pundit
 

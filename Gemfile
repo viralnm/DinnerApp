@@ -44,6 +44,10 @@ gem "twitter-bootstrap-rails"
 # gem 'bcrypt', '~> 3.1.7'
 gem 'sprockets', '3.6.3'
 
+gem "paperclip",'~>3.5.2'
+
+gem 'paperclip-av-transcoder' 
+gem 'paperclip-ffmpeg' 
 
 # Use Unicorn as the app server
 # gem 'unicorn'
