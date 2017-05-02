@@ -22,13 +22,13 @@ class Restaurant < ActiveRecord::Base
 	        help 'Enter longitude'
 	      end
 	       field :rating do
-	        help 'Enter facebook Id'
+	        help 'Enter rating'
 	      end
 	      field :photo do
 	        help 'upload Photo'
 	      end	     
 	      field :add_manual do
-	        help 'Enter google Id'
+	        help ' '
 	      end
 	    end
 
@@ -46,13 +46,13 @@ class Restaurant < ActiveRecord::Base
 	        help 'Enter longitude'
 	      end
 	       field :rating do
-	        help 'Enter facebook Id'
+	        help 'Enter rating'
 	      end
 	      field :photo do
 	        help 'upload Photo'
 	      end	     
 	      field :add_manual do
-	        help 'Enter google Id'
+	        help ' '
 	      end
 		end
 	end
