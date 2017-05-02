@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
 	        help 'Enter First Name'
 	      end
 	      field :email do
-	        help 'Email Email Address'
+	        help 'Enter Email Address'
 	      end
 	      field :password do
 	        help 'Enter Password'

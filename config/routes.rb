@@ -9,7 +9,8 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'home#index'
+  root 'rails_admin/main#dashboard'
+  get 'home/index' => 'home#index'
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
       get  '/place'      => "googleapi#place"

@@ -13,7 +13,7 @@ RailsAdmin.config do |config|
   ## == Cancan ==
   # config.authorize_with :cancan
 
-config.included_models = [ User, Admin ]
+config.included_models = [ User, Admin, Restaurant]
   ## == Pundit ==
   # config.authorize_with :pundit
 

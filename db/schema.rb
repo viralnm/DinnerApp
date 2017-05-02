@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170501132130) do
+ActiveRecord::Schema.define(version: 20170502141437) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -61,6 +61,21 @@ ActiveRecord::Schema.define(version: 20170501132130) do
 
   add_index "opro_client_apps", ["app_id", "app_secret"], name: "index_opro_client_apps_on_app_id_and_app_secret", unique: true, using: :btree
   add_index "opro_client_apps", ["app_id"], name: "index_opro_client_apps_on_app_id", unique: true, using: :btree
+
+  create_table "restaurants", force: :cascade do |t|
+    t.string   "name",               limit: 255
+    t.string   "formatted_address",  limit: 255
+    t.string   "latitude",           limit: 255
+    t.string   "longitude",          limit: 255
+    t.integer  "rating",             limit: 4
+    t.string   "photo_file_name",    limit: 255
+    t.string   "photo_content_type", limit: 255
+    t.string   "photo_file_size",    limit: 255
+    t.string   "photo_updated_at",   limit: 255
+    t.boolean  "add_manual",                     default: true
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name",             limit: 255
