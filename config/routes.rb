@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'rails_admin/main#dashboard'
-  get 'home/index' => 'home#index'
+  # get 'home/index' => 'home#index'
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
       get  '/place'      => "googleapi#place"
