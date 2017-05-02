@@ -16,14 +16,14 @@ json.results do
 			json.place_id res['place_id']
 			json.rating res['rating']
 			json.photos do
-				if res['photos'].size > 0
+				if !res['photos'].blank?
 					json.array! res['photos'].each do |ph|
 						json.photo_url "https://maps.googleapis.com/maps/api/place/photo?maxwidth="+ph['width'].to_s+"&photoreference="+ph['photo_reference']+"&key="+@key.to_s
 					end
 				else
 					json.array! res['photos']
 				end
-			end
+			end	
 		end
 	else
 		json.array! @response['results']
