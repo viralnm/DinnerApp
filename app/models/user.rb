@@ -21,9 +21,6 @@ class User < ActiveRecord::Base
 	      field :password_confirmation do
 	        help 'Re-enter Password'
 	      end
-	      field :devise_token do
-	      	help 'enter Devise_token'
-	      end
 	    end
 
 	    edit do
