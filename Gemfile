@@ -50,8 +50,8 @@ gem 'font-awesome-rails', '~> 4.1.0.0'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 group :assets do
-	gem 'sass-rails', '~> 5.0'
-  gem 'coffee-rails', '~> 4.1.0'
+ gem 'sass-rails', '~> 5.0', '>= 5.0.6'
+   gem 'coffee-rails', '~> 4.1.0'
 
   gem 'uglifier', '>= 1.0.3'
   gem 'fancybox-rails'
