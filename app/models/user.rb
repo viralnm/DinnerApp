@@ -3,5 +3,44 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+         
+ 	rails_admin do
+	    create do
+	      field :first_name do
+	        help 'Enter First Name'
+	      end
+	      field :last_name do
+	        help 'Enter First Name'
+	      end
+	      field :email do
+	        help 'Email Email Address'
+	      end
+	      field :password do
+	        help 'Enter Password'
+	      end
+	      field :password_confirmation do
+	        help 'Re-enter Password'
+	      end
+	    end
+
+	    edit do
+	      field :first_name do
+	        help 'Enter First Name'
+	      end
+	      field :last_name do
+	        help 'Enter First Name'
+	      end
+	      field :email do
+	        help 'Enter Email Address'
+	      end
+	      field :password do
+	        help 'Enter Password'
+	      end
+	      field :password_confirmation do
+	        help 'Re-enter Password'
+	      end
+		end
+	end
+
 
 end
