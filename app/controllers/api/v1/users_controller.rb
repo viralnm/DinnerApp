@@ -3,7 +3,7 @@ module Api
 		class UsersController < Api::BaseController
 		  skip_before_filter :authenticate_user!, :only => [:create]
 		  # before_filter :authenticate_on_create, :only => [:create]
-		  skip_before_action :verify_authenticity_token, :only => [:create,:logout]
+		  skip_before_action :verify_authenticity_token, :only => [:create,:logout, :update]
 			def create
 				if params[:user][:register_via] == "Manual"
 					@email = User.where(email: params[:user][:email], register_via: "Manual")
@@ -170,6 +170,24 @@ module Api
 			                        response: 'false',
 			                        msg: 'wrong access_token',
 			                        error_code: '205'} }
+			      end
+			    end
+			end
+
+
+			def update
+			    @user = User.find(params[:id])
+			    if @user.update_attributes(user_params)
+			     respond_to do |format|
+			        format.json{ render :json => { action: 'user_update',
+			                        response: 'true',
+			                        msg: 'User information was updated Successfully.'} }
+			      end
+			    else
+			     respond_to do |format|
+			        format.json{ render :json => { action: 'user_update',
+			                        response: 'false',
+			                        msg: 'User information was not updated.'} }
 			      end
 			    end
 			end
