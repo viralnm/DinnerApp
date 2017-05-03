@@ -30,12 +30,14 @@ config.included_models = [ User, Admin, Restaurant]
     dashboard                     # mandatory
     index                         # mandatory
     new do
-      except ['Admin']
+      except ['Admin','User']
     end
     export
     bulk_delete
     show
-    edit
+    edit do
+      except ['User']
+      end
     delete
     show_in_app
 
