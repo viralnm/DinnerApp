@@ -26,7 +26,7 @@ gem 'opro'
 gem 'unicorn'
 # security
  gem "brakeman", :require => false
-
+gem 'geocoder'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

@@ -1,7 +1,7 @@
 module Api
 	module V1 
 		class UsersController < Api::BaseController
-		  skip_before_filter :authenticate_user!, :only => [:create]
+		  skip_before_filter :authenticate_user!, :only => [:create,:logout, :update]
 		  # before_filter :authenticate_on_create, :only => [:create]
 		  skip_before_action :verify_authenticity_token, :only => [:create,:logout, :update]
 			def create
