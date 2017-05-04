@@ -1,6 +1,6 @@
 class Restaurant < ActiveRecord::Base
 	
-include Geocoder::Model::Mongoid
+
 	has_attached_file :photo, :styles => {:avatar => "100x100#"}
 	validates_presence_of :name, :message => "Name can't be blank"
 	validates_presence_of :formatted_address, :message => "Address can't be blank"
