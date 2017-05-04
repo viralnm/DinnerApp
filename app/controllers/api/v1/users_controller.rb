@@ -181,7 +181,9 @@ module Api
 			     respond_to do |format|
 			        format.json{ render :json => { action: 'user_update',
 			                        response: 'true',
-			                        msg: 'User information was updated Successfully.'} }
+			                        msg: 'User information was updated Successfully.',
+			                        userdetails:
+                           { user_id: @user.id, firstname: @user.first_name,lastname: @user.last_name,email: @user.email, photo: @user.photo.url,photo_url: @user.photo_url}} }
 			      end
 			    else
 			     respond_to do |format|
