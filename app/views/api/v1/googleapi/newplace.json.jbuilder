@@ -1,5 +1,5 @@
 json.action "googleapi_place"
-if @response['results'].size > 0
+if @response.size > 0
 	json.response "true"
 	json.msg  "Successfully fetch your googleapi_place details"
 else

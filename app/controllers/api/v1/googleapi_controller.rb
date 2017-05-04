@@ -9,19 +9,21 @@ class Api::V1::GoogleapiController < Api::BaseController
 
 	 @response=RestClient::Request.execute(method: :get, url: 'https://maps.googleapis.com/maps/api/place/textsearch/json',
                             timeout: 10, headers: {params: {key: @key, location: params[:location],:radius => radius, :type => type}})
+
 	 @response = ActiveSupport::JSON.decode(@response)
 	 # puts @response['results']
 	end
 	def newplace
-		# puts lat = params[:latitude]
-		# puts lng = params[:longitude]
-		# puts "kinjal"
-		# @response = Restaureant.find_by_sql("SELECT id, ( 3959 * acos( cos( radians("+lat+") ) * cos( radians( latitude ) ) * cos( radians( longitude ) - radians("+lng+") ) + sin( radians("+lat+") ) * sin( radians( latitude ) ) ) ) AS distance FROM restaurants HAVING distance < 25 ORDER BY distance LIMIT 0 , 20")
-	@response = Restaureant.near("Champs de Mars, Paris", 10, order: :distance)
-	
-    # @response = Restaureant.near([params[:latitude], params[:longitude]], 5000)
-  
-    # @response = Restaureant.find(:all, :origin =>[params[:latitude],params[:longitude]], :within=>50000)
+		@key = "AIzaSyCQ9aGFwsgl4IsJqpY5HHdnDbTWBHyD_TQ"
+	#  type = "cafe"
+	#  radius = 500
+
+	#  @response=RestClient::Request.execute(method: :get, url: 'https://maps.googleapis.com/maps/api/place/textsearch/json',
+ #                            timeout: 10, headers: {params: {key: @key, location: params[:location],:radius => radius, :type => type}})
+	# @response = ActiveSupport::JSON.decode(@response)
+
+    @response = Restaurant.near([params[:latitude], params[:longitude]], 500)
+  Geocoder::Calculations.distance_between([47.858205,2.294359], [40.748433,-73.985655])
 
 	end
 end
