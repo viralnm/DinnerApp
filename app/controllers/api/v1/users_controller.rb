@@ -43,7 +43,7 @@ module Api
 						end
 					end
 				elsif params[:user][:register_via] == "Facebook"
-					@f_user = User.where(facebook_id: params[:user][:facebook_id], devise_token: params[:user][:devise_token]).first
+					@f_user = User.where(facebook_id: params[:user][:facebook_id]).first
 					if @f_user.blank?
 						@user = User.create(user_params)
 						if @user.save
@@ -94,7 +94,7 @@ module Api
                            { user_id: @f_user.id, firstname: @f_user.first_name,lastname: @f_user.last_name,email: @f_user.email, photo: @f_user.photo.url,photo_url: @f_user.photo_url} }
 					end
 				elsif params[:user][:register_via] == "Google"
-					@f_user = User.where(google_id: params[:user][:google_id], devise_token: params[:user][:devise_token]).first
+					@f_user = User.where(google_id: params[:user][:google_id]).first
 					if @f_user.blank?
 						@user = User.create(user_params)
 						if @user.save

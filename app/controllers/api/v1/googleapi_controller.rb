@@ -57,5 +57,6 @@ class Api::V1::GoogleapiController < Api::BaseController
 
 
   	@sorted = @array.sort_by { |k| k[:distance] }
+  	
 	end
 end
