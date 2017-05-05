@@ -4,7 +4,7 @@ class Api::V1::GoogleapiController < Api::BaseController
 	def place
 		# response = RestClient.post 'https://maps.googleapis.com/maps/api/place/textsearch/json', {:location => params[:location] , :radius => params[:radius], :type => params[:type], :key => params[:key]}
 	 @key = "AIzaSyCQ9aGFwsgl4IsJqpY5HHdnDbTWBHyD_TQ"
-	 type = "cafe"
+	 type = "food"
 	 radius = 5000
 
 	 @response=RestClient::Request.execute(method: :get, url: 'https://maps.googleapis.com/maps/api/place/textsearch/json',
@@ -57,6 +57,6 @@ class Api::V1::GoogleapiController < Api::BaseController
 
 
   	@sorted = @array.sort_by { |k| k[:distance] }
-  	
+
 	end
 end
