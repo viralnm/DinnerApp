@@ -6,5 +6,5 @@ else
 	json.response "false"
 	json.msg  "places are not available."
 end
-json.results_google @sorted
+json.results @sorted
 
