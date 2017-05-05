@@ -36,7 +36,7 @@ class Api::V1::GoogleapiController < Api::BaseController
   				photo << res['photos']
   			end
   			distance = Geocoder::Calculations.distance_between([params[:latitude], params[:longitude]], [res['geometry']['location']['lat'],res['geometry']['location']['lng']])
-  			@array << {name: res['name'], formatted_address: res['formatted_address'], latitude: res['geometry']['location']['lat'], longitude: res['geometry']['location']['lng'], place_id: res['place_id'], rating: res['rating'], distance: distance, photo: photo , add_manual: false}
+  			@array << {name: res['name'], formatted_address: res['formatted_address'], latitude: res['geometry']['location']['lat'], longitude: res['geometry']['location']['lng'], place_id: res['place_id'], rating: res['rating'], distance: distance, photos: photo , add_manual: false}
   		end
   	end
   # push local response in array
@@ -51,7 +51,7 @@ class Api::V1::GoogleapiController < Api::BaseController
   			else
   				photo << db_photos
   			end
-  			@array << {name: res.name, formatted_address: res.formatted_address, latitude: res.latitude, longitude: res.longitude, place_id: res.id, rating: res['rating'], distance: res.distance, photo: photo , add_manual: true}
+  			@array << {name: res.name, formatted_address: res.formatted_address, latitude: res.latitude, longitude: res.longitude, place_id: res.id, rating: res['rating'], distance: res.distance, photos: photo , add_manual: true}
   		end
   	end
 
