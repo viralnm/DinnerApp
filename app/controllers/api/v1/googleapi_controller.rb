@@ -32,11 +32,13 @@ class Api::V1::GoogleapiController < Api::BaseController
   				res['photos'].each do |ph|
   					photo << {photo_url: "https://maps.googleapis.com/maps/api/place/photo?maxwidth="+ph['width'].to_s+"&photoreference="+ph['photo_reference']+"&key="+@key.to_s, photoreference: ph['photo_reference']}
   				end
+  				distance = Geocoder::Calculations.distance_between([params[:latitude], params[:longitude]], [res['geometry']['location']['lat'],res['geometry']['location']['lng']])
+  				@array << {name: res['name'], formatted_address: res['formatted_address'], latitude: res['geometry']['location']['lat'], longitude: res['geometry']['location']['lng'], place_id: res['place_id'], rating: res['rating'], distance: distance, photos: photo , add_manual: false}
   			else
-  				photo << res['photos']
+  				distance = Geocoder::Calculations.distance_between([params[:latitude], params[:longitude]], [res['geometry']['location']['lat'],res['geometry']['location']['lng']])
+  				@array << {name: res['name'], formatted_address: res['formatted_address'], latitude: res['geometry']['location']['lat'], longitude: res['geometry']['location']['lng'], place_id: res['place_id'], rating: res['rating'], distance: distance, photos: photo , add_manual: false}
   			end
-  			distance = Geocoder::Calculations.distance_between([params[:latitude], params[:longitude]], [res['geometry']['location']['lat'],res['geometry']['location']['lng']])
-  			@array << {name: res['name'], formatted_address: res['formatted_address'], latitude: res['geometry']['location']['lat'], longitude: res['geometry']['location']['lng'], place_id: res['place_id'], rating: res['rating'], distance: distance, photos: photo , add_manual: false}
+  			
   		end
   	end
   # push local response in array
@@ -48,10 +50,11 @@ class Api::V1::GoogleapiController < Api::BaseController
   				db_photos.each do |ph|
   					photo << {photo_url: ph.photo.url, photoreference: ph.id}
   				end
+  				@array << {name: res.name, formatted_address: res.formatted_address, latitude: res.latitude, longitude: res.longitude, place_id: res.id, rating: res['rating'], distance: res.distance, photos: photo , add_manual: true}
   			else
-  				photo << db_photos
+  				@array << {name: res.name, formatted_address: res.formatted_address, latitude: res.latitude, longitude: res.longitude, place_id: res.id, rating: res['rating'], distance: res.distance, photos: photo , add_manual: true}
   			end
-  			@array << {name: res.name, formatted_address: res.formatted_address, latitude: res.latitude, longitude: res.longitude, place_id: res.id, rating: res['rating'], distance: res.distance, photos: photo , add_manual: true}
+  			
   		end
   	end
 
