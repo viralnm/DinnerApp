@@ -13,7 +13,7 @@ RailsAdmin.config do |config|
   ## == Cancan ==
   # config.authorize_with :cancan
 
-config.included_models = [ User, Admin, Restaurant,RestaurantPhoto]
+config.included_models = [ User, Admin, Restaurant,RestaurantPhoto, RestaurantReview]
   ## == Pundit ==
   # config.authorize_with :pundit
 
@@ -30,13 +30,13 @@ config.included_models = [ User, Admin, Restaurant,RestaurantPhoto]
     dashboard                     # mandatory
     index                         # mandatory
     new do
-      except ['Admin','User']
+      except ['Admin','User','RestaurantReview']
     end
     export
     bulk_delete
     show
     edit do
-      except ['User']
+      except ['User','RestaurantReview']
       end
     delete
     show_in_app

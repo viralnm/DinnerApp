@@ -1,9 +1,9 @@
 class Api::V1::GoogleapiController < Api::BaseController
-	skip_before_action :verify_authenticity_token, :only => [:place, :newplace]
-	skip_before_filter :authenticate_user!, :only => [:place, :newplace]
+	skip_before_action :verify_authenticity_token, :only => [:place, :newplace, :place_details]
+	skip_before_filter :authenticate_user!, :only => [:place, :newplace, :place_details ]
 	def place
 		# response = RestClient.post 'https://maps.googleapis.com/maps/api/place/textsearch/json', {:location => params[:location] , :radius => params[:radius], :type => params[:type], :key => params[:key]}
-	 @key = "AIzaSyCQ9aGFwsgl4IsJqpY5HHdnDbTWBHyD_TQ"
+	 @key = "AIzaSyCQ9aGFwsgl4IsJqpY5HHdnDbTWBHyD_TQ" 
 	 type = "food"
 	 radius = 5000
 
@@ -50,9 +50,9 @@ class Api::V1::GoogleapiController < Api::BaseController
   				db_photos.each do |ph|
   					photo << {photo_url: ph.photo.url, photoreference: ph.id}
   				end
-  				@array << {name: res.name, formatted_address: res.formatted_address, latitude: res.latitude, longitude: res.longitude, place_id: res.id, rating: res['rating'], distance: res.distance, photos: photo , add_manual: true}
+  				@array << {name: res.name, formatted_address: res.formatted_address, latitude: res.latitude, longitude: res.longitude, place_id: res.id, rating: res.rating, distance: res.distance, photos: photo , add_manual: true}
   			else
-  				@array << {name: res.name, formatted_address: res.formatted_address, latitude: res.latitude, longitude: res.longitude, place_id: res.id, rating: res['rating'], distance: res.distance, photos: photo , add_manual: true}
+  				@array << {name: res.name, formatted_address: res.formatted_address, latitude: res.latitude, longitude: res.longitude, place_id: res.id, rating: res.rating, distance: res.distance, photos: photo , add_manual: true}
   			end
   			
   		end
@@ -62,4 +62,19 @@ class Api::V1::GoogleapiController < Api::BaseController
   	@sorted = @array.sort_by { |k| k[:distance] }
 
 	end
+
+	def place_details
+		@add_manual = params[:add_manual]
+		if @add_manual == 'true'
+			@res = Restaurant.find(params[:placeid])
+			@res_reviews = @res.restaurant_reviews.all 
+			@db_photos = @res.restaurant_photos.all
+		else
+			@key = "AIzaSyCQ9aGFwsgl4IsJqpY5HHdnDbTWBHyD_TQ"
+			@res = RestClient::Request.execute(method: :get, url: 'https://maps.googleapis.com/maps/api/place/details/json',
+	                            timeout: 10, headers: {params: {placeid: params[:placeid], key: @key}})
+			@res = ActiveSupport::JSON.decode(@res)
+		end
+	end
+
 end

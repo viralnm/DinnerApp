@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       get  '/place'      => "googleapi#place"
       get  '/newplace'      => "googleapi#newplace"
+      post  '/place_details'      => "googleapi#place_details"
       resources :users do
         collection do
             post :logout
