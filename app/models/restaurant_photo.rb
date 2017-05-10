@@ -1,8 +1,8 @@
 class RestaurantPhoto < ActiveRecord::Base
 	belongs_to :restaurant
 	has_attached_file :photo, :styles => {:avatar => "100x100#"},
-	:path => "/public/rest/img/:id/:style/:basename.jpg",
-	:url => "/public/rest/img/:id/:style/:basename.jpg"
+	:path => "/system/img/:id/:style/:basename.jpg",
+	:url => "/system/img/:id/:style/:basename.jpg"
 	rails_admin do
  		list do
  			field :restaurant
