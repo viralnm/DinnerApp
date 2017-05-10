@@ -119,21 +119,22 @@ class Api::V1::GoogleapiController < Api::BaseController
   					# url_c = "http://54.218.251.105:3000"+ph.photo.url
       	# 		@s_urls = RestClient.post "https://www.googleapis.com/urlshortener/v1/url/?key=AIzaSyBU_beRXw4pisGLzJLlwMAdKaBhj3XTYCY", {"longUrl" => url_c}.to_json, :content_type => "application/json"
   					# @s_urls = ActiveSupport::JSON.decode(@s_urls)
-  					image_url = "http://54.218.251.105:3000"+ph.photo.url
-						api_key = 'acc_61d09fb31788cb1'
-						api_secret = 'e818bc86ebe0f859b8d3a56233578ce0'
-						auth = 'Basic ' + Base64.strict_encode64( "#{api_key}:#{api_secret}" ).chomp
-					 	@img_check = RestClient.get "https://api.imagga.com/v1/tagging?url=#{image_url}", { :Authorization => auth }
-					 	@img_check= ActiveSupport::JSON.decode(@img_check)
-					 	puts @img_check
-						@img_check['results'].each do |r|
-							r['tags'].each do |t|
-								if t['tag'] == "food"
-									puts t['tag']
-									photo << {photo_url: ph.photo.url, photoreference: ph.id}
-								end
-							end
-						end
+  				# 	image_url = "http://54.218.251.105:3000"+ph.photo.url
+						# api_key = 'acc_61d09fb31788cb1'
+						# api_secret = 'e818bc86ebe0f859b8d3a56233578ce0'
+						# auth = 'Basic ' + Base64.strict_encode64( "#{api_key}:#{api_secret}" ).chomp
+					 # 	@img_check = RestClient.get "https://api.imagga.com/v1/tagging?url=#{image_url}", { :Authorization => auth }
+					 # 	@img_check= ActiveSupport::JSON.decode(@img_check)
+					 # 	puts @img_check
+						# @img_check['results'].each do |r|
+						# 	r['tags'].each do |t|
+						# 		if t['tag'] == "food"
+						# 			puts t['tag']
+									
+						# 		end
+						# 	end
+						# end
+						photo << {photo_url: ph.photo.url, photoreference: ph.id}
   				end
 
   				@array << {name: res.name, formatted_address: res.formatted_address, latitude: res.latitude, longitude: res.longitude, place_id: res.id, rating: res.rating, distance: res.distance, photos: photo , add_manual: true}
