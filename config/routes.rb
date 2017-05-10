@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       get  '/place'      => "googleapi#place"
       get  '/newplace'      => "googleapi#newplace"
       post  '/place_details'      => "googleapi#place_details"
+      get  '/placewithfilter'      => "googleapi#placewithfilter"
       resources :users do
         collection do
             post :logout
