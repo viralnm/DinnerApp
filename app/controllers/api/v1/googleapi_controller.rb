@@ -116,10 +116,10 @@ class Api::V1::GoogleapiController < Api::BaseController
   			db_photos = res.restaurant_photos.all
   			if !db_photos.blank?
   				db_photos.each do |ph|
-  					url_c = "http://54.218.251.105:3000"+ph.photo.url
-      			@s_urls = RestClient.post "https://www.googleapis.com/urlshortener/v1/url/?key=AIzaSyBU_beRXw4pisGLzJLlwMAdKaBhj3XTYCY", {"longUrl" => url_c}.to_json, :content_type => "application/json"
-  					@s_urls = ActiveSupport::JSON.decode(@s_urls)
-  					image_url = @s_urls['id']
+  					# url_c = "http://54.218.251.105:3000"+ph.photo.url
+      	# 		@s_urls = RestClient.post "https://www.googleapis.com/urlshortener/v1/url/?key=AIzaSyBU_beRXw4pisGLzJLlwMAdKaBhj3XTYCY", {"longUrl" => url_c}.to_json, :content_type => "application/json"
+  					# @s_urls = ActiveSupport::JSON.decode(@s_urls)
+  					image_url = "http://54.218.251.105:3000"+ph.photo.url
 						api_key = 'acc_61d09fb31788cb1'
 						api_secret = 'e818bc86ebe0f859b8d3a56233578ce0'
 						auth = 'Basic ' + Base64.strict_encode64( "#{api_key}:#{api_secret}" ).chomp
