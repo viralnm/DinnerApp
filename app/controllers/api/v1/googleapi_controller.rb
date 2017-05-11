@@ -1,6 +1,6 @@
 class Api::V1::GoogleapiController < Api::BaseController
-	skip_before_action :verify_authenticity_token, :only => [:place, :newplace, :place_details,:placewithfilter]
-	skip_before_filter :authenticate_user!, :only => [:place, :newplace, :place_details,:placewithfilter ]
+	skip_before_action :verify_authenticity_token, :only => [:place, :newplace, :place_details,:placewithfilter,:place_old]
+	skip_before_filter :authenticate_user!, :only => [:place, :newplace, :place_details,:placewithfilter, :place_old]
 	def place
 		# response = RestClient.post 'https://maps.googleapis.com/maps/api/place/textsearch/json', {:location => params[:location] , :radius => params[:radius], :type => params[:type], :key => params[:key]}
 	 @key = "AIzaSyCQ9aGFwsgl4IsJqpY5HHdnDbTWBHyD_TQ" 
@@ -14,6 +14,63 @@ class Api::V1::GoogleapiController < Api::BaseController
 	 # puts @response['results']
 	end
 	def newplace
+		client_id = "SNJXcT5vmW12bA-ChqHVBg"
+		client_secret = "fxeY2Wu0o8cQQg9rdbSWelTur87hTpsNBzqZefUBpydiIaZxOwVzY5gyPtpcA9bn"
+		@array = Array.new
+		@places =search("food", params[:latitude],params[:longitude])
+
+		@response = Restaurant.near([params[:latitude], params[:longitude]], 500)
+		#push google result in array 
+  	if @places['businesses'].size > 0
+  		@places['businesses'].each do |plc|
+  			photo = Array.new
+  			f = 0
+  			if !plc['image_url'].blank?
+  				image_url = plc['image_url']
+					api_key = 'acc_61d09fb31788cb1'
+					api_secret = 'e818bc86ebe0f859b8d3a56233578ce0'
+					auth = 'Basic ' + Base64.strict_encode64( "#{api_key}:#{api_secret}" ).chomp
+				 	@img_check = RestClient.get "https://api.imagga.com/v1/tagging?url=#{image_url}", { :Authorization => auth }
+				 	@img_check= ActiveSupport::JSON.decode(@img_check)
+				 	puts @img_check
+					@img_check['results'].each do |r|
+						r['tags'].each do |t|
+							if t['tag'] == "food"
+								puts t['tag']
+								f = 1
+							end
+						end
+					end
+  				photo << {photo_url: plc['image_url'], photoreference: plc['image_url']}
+  			end
+  			if f == 1
+	  			address = plc['location']['address1']+","+plc['location']['city']+","+plc['location']['state']+","+plc['location']['zip_code']
+	  			@array << {name: plc['name'], formatted_address: address, latitude: plc['coordinates']['latitude'], longitude: plc['coordinates']['longitude'], place_id: plc['id'], rating: plc['rating'], distance: plc['distance'], photos: photo , add_manual: false}  				
+  			end
+  		end
+  	end
+  # push local response in array
+  	if  @response.size > 0
+  		@response.each do |res|
+  			photo = Array.new
+  			db_photos = res.restaurant_photos.all
+  			if !db_photos.blank?
+  				db_photos.each do |ph|
+  					photo << {photo_url: ph.photo.url, photoreference: ph.id}
+  				end
+  				@array << {name: res.name, formatted_address: res.formatted_address, latitude: res.latitude, longitude: res.longitude, place_id: res.id, rating: res.rating, distance: res.distance, photos: photo , add_manual: true}
+  			else
+  				@array << {name: res.name, formatted_address: res.formatted_address, latitude: res.latitude, longitude: res.longitude, place_id: res.id, rating: res.rating, distance: res.distance, photos: photo , add_manual: true}
+  			end
+  			
+  		end
+  	end
+
+
+  	@sorted = @array.sort_by { |k| k[:distance] }
+	end
+
+	def place_old # with imagga api
 		@key = "AIzaSyCQ9aGFwsgl4IsJqpY5HHdnDbTWBHyD_TQ"
 	  type = "cafe"
 	  radius = 600
@@ -97,9 +154,52 @@ class Api::V1::GoogleapiController < Api::BaseController
 
   	@sorted = @array.sort_by { |k| k[:distance] }
 
+
+		respond_to do |format|
+			        format.json{ render :json => { action: 'place_old',
+			                        response: 'true',
+			                        msg: 'ok',result: @sorted} }
+			      end
 	end
 
-	def placewithfilter
+	def bearer_token
+		client_id = "SNJXcT5vmW12bA-ChqHVBg"
+		client_secret = "fxeY2Wu0o8cQQg9rdbSWelTur87hTpsNBzqZefUBpydiIaZxOwVzY5gyPtpcA9bn"
+		api_host = "https://api.yelp.com"
+		token_path = "/oauth2/token"
+		grant_type = "client_credentials"
+
+	  # Put the url together
+	  url = api_host+token_path
+
+	  # Build our params hash
+	  params = {
+	    client_id: client_id,
+	    client_secret: client_secret,
+	    grant_type: grant_type
+	  }
+
+	  response = HTTP.post(url, params: params)
+	  parsed = response.parse
+
+	  "#{parsed['token_type']} #{parsed['access_token']}"
+	end
+
+	def search(term, latitude,longitude)
+		api_host = "https://api.yelp.com"
+		search_path = "/v3/businesses/search"
+	  url = api_host+search_path
+	  params = {
+	    term: term,
+	    latitude: latitude,
+	    longitude: longitude
+	  }
+
+	  response = HTTP.auth(bearer_token).get(url, params: params)
+	  response.parse
+	end
+
+	def placewithfilter # without imagga api
 		@key = "AIzaSyCQ9aGFwsgl4IsJqpY5HHdnDbTWBHyD_TQ"
 	 type = "cafe"
 	 radius = 500

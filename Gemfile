@@ -23,7 +23,7 @@ gem 'rails_admin'
 gem 'opro'
 
 
-
+gem "http"
 
 gem 'unicorn'
 # security
