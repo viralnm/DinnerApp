@@ -1,6 +1,6 @@
 class Api::V1::GoogleapiController < Api::BaseController
-	skip_before_action :verify_authenticity_token, :only => [:place, :newplace, :place_details,:placewithfilter,:place_old]
-	skip_before_filter :authenticate_user!, :only => [:place, :newplace, :place_details,:placewithfilter, :place_old]
+	skip_before_action :verify_authenticity_token, :only => [:place, :newplace, :place_details,:placewithfilter,:place_old, :review]
+	skip_before_filter :authenticate_user!, :only => [:place, :newplace, :place_details,:placewithfilter, :place_old,:review]
 	def place
 		# response = RestClient.post 'https://maps.googleapis.com/maps/api/place/textsearch/json', {:location => params[:location] , :radius => params[:radius], :type => params[:type], :key => params[:key]}
 	 @key = "AIzaSyCQ9aGFwsgl4IsJqpY5HHdnDbTWBHyD_TQ" 
@@ -24,23 +24,23 @@ class Api::V1::GoogleapiController < Api::BaseController
   	if @places['businesses'].size > 0
   		@places['businesses'].each do |plc|
   			photo = Array.new
-  			f = 0
+  			f = 1
   			if !plc['image_url'].blank?
-  				image_url = plc['image_url']
-					api_key = 'acc_61d09fb31788cb1'
-					api_secret = 'e818bc86ebe0f859b8d3a56233578ce0'
-					auth = 'Basic ' + Base64.strict_encode64( "#{api_key}:#{api_secret}" ).chomp
-				 	@img_check = RestClient.get "https://api.imagga.com/v1/tagging?url=#{image_url}", { :Authorization => auth }
-				 	@img_check= ActiveSupport::JSON.decode(@img_check)
-				 	puts @img_check
-					@img_check['results'].each do |r|
-						r['tags'].each do |t|
-							if t['tag'] == "food"
-								puts t['tag']
-								f = 1
-							end
-						end
-					end
+  			# 	image_url = plc['image_url']
+					# api_key = 'acc_61d09fb31788cb1'
+					# api_secret = 'e818bc86ebe0f859b8d3a56233578ce0'
+					# auth = 'Basic ' + Base64.strict_encode64( "#{api_key}:#{api_secret}" ).chomp
+				 # 	@img_check = RestClient.get "https://api.imagga.com/v1/tagging?url=#{image_url}", { :Authorization => auth }
+				 # 	@img_check= ActiveSupport::JSON.decode(@img_check)
+				 # 	puts @img_check
+					# @img_check['results'].each do |r|
+					# 	r['tags'].each do |t|
+					# 		if t['tag'] == "food"
+					# 			puts t['tag']
+					# 			f = 1
+					# 		end
+					# 	end
+					# end
   				photo << {photo_url: plc['image_url'], photoreference: plc['image_url']}
   			end
   			if f == 1
@@ -198,6 +198,11 @@ class Api::V1::GoogleapiController < Api::BaseController
 	  response = HTTP.auth(bearer_token).get(url, params: params)
 	  response.parse
 	end
+	def res_review(id)
+	  url = "https://api.yelp.com/v3/businesses/"+id+"/reviews"
+	  response = HTTP.auth(bearer_token).get(url)
+	  response.parse
+	end
 
 	def placewithfilter # without imagga api
 		@key = "AIzaSyCQ9aGFwsgl4IsJqpY5HHdnDbTWBHyD_TQ"
@@ -259,6 +264,17 @@ class Api::V1::GoogleapiController < Api::BaseController
 			@res = RestClient::Request.execute(method: :get, url: 'https://maps.googleapis.com/maps/api/place/details/json',
 	                            timeout: 10, headers: {params: {placeid: params[:placeid], key: @key}})
 			@res = ActiveSupport::JSON.decode(@res)
+		end
+	end
+
+	def review
+		@add_manual = params[:add_manual]
+		if @add_manual == 'true'
+			@res = Restaurant.find(params[:placeid])
+			@res_reviews = @res.restaurant_reviews.all 
+			@db_photos = @res.restaurant_photos.all
+		else
+			@res_reviews = res_review(params[:placeid])
 		end
 	end
 
