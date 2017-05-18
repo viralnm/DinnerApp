@@ -77,7 +77,7 @@ class Api::V1::GoogleapiController < Api::BaseController
                             timeout: 20, headers: {params: {key: @key, location: params[:location],:radius => radius, :type => type}})
 	  @response_google = ActiveSupport::JSON.decode(@response_google)
 
-    @response = Restaurant.near([params[:latitude], params[:longitude]], 500)
+    @response = Restaurant.near([params[:latitude], params[:longitude]], 40000)
   
   #push google result in array 
   	if @response_google['results'].size > 0
