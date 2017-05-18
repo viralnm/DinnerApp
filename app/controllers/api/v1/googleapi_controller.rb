@@ -17,7 +17,7 @@ class Api::V1::GoogleapiController < Api::BaseController
 		client_id = "SNJXcT5vmW12bA-ChqHVBg"
 		client_secret = "fxeY2Wu0o8cQQg9rdbSWelTur87hTpsNBzqZefUBpydiIaZxOwVzY5gyPtpcA9bn"
 		@array = Array.new
-		@places =search("food", params[:latitude],params[:longitude],40000)
+		@places =search("food", params[:latitude],params[:longitude],40000,50)
 
 		@response = Restaurant.near([params[:latitude], params[:longitude]], 40000)
 		#push google result in array 
@@ -183,7 +183,7 @@ class Api::V1::GoogleapiController < Api::BaseController
 	  "#{parsed['token_type']} #{parsed['access_token']}"
 	end
 
-	def search(term, latitude,longitude,radius)
+	def search(term, latitude,longitude,radius,limit)
 		api_host = "https://api.yelp.com"
 		search_path = "/v3/businesses/search"
 	  url = api_host+search_path
@@ -191,7 +191,8 @@ class Api::V1::GoogleapiController < Api::BaseController
 	    term: term,
 	    latitude: latitude,
 	    longitude: longitude,
-	    radius: radius
+	    radius: radius,
+	    limit: limit
 	  }
 
 	  response = HTTP.auth(bearer_token).get(url, params: params)
