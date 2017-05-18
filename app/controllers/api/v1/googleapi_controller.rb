@@ -19,7 +19,7 @@ class Api::V1::GoogleapiController < Api::BaseController
 		@array = Array.new
 		@places =search("food", params[:latitude],params[:longitude])
 
-		@response = Restaurant.near([params[:latitude], params[:longitude]], 500)
+		@response = Restaurant.near([params[:latitude], params[:longitude]], 40000)
 		#push google result in array 
   	if @places['businesses'].size > 0
   		@places['businesses'].each do |plc|
