@@ -17,7 +17,7 @@ class Api::V1::GoogleapiController < Api::BaseController
 		client_id = "SNJXcT5vmW12bA-ChqHVBg"
 		client_secret = "fxeY2Wu0o8cQQg9rdbSWelTur87hTpsNBzqZefUBpydiIaZxOwVzY5gyPtpcA9bn"
 		@array = Array.new
-		@places =search("food", params[:latitude],params[:longitude])
+		@places =search("food", params[:latitude],params[:longitude],40000)
 
 		@response = Restaurant.near([params[:latitude], params[:longitude]], 40000)
 		#push google result in array 
