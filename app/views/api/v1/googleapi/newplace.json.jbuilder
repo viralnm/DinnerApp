@@ -6,5 +6,6 @@ else
 	json.response "false"
 	json.msg  "places are not available."
 end
+json.total @places['total']
 json.results @sorted
 
