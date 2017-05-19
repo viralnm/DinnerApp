@@ -29,7 +29,7 @@ class Api::V1::GoogleapiController < Api::BaseController
 
 		@response = Restaurant.near([params[:latitude], params[:longitude]], 40000)
 		#push google result in array 
-  	if @places['businesses'].size > 0
+  	if !@places['businesses'].blank?
   		@places['businesses'].each do |plc|
   			photo = Array.new
   			f = 1
