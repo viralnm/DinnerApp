@@ -35,8 +35,8 @@ class Api::V1::GoogleapiController < Api::BaseController
   			f = 0
   			if !plc['image_url'].blank?
   				image_url = plc['image_url']
-					api_key = 'acc_61d09fb31788cb1'
-					api_secret = 'e818bc86ebe0f859b8d3a56233578ce0'
+					api_key = 'acc_d78cd87a96a436b'
+					api_secret = '315c62e0d6992680a55fbb073dd338fb'
 					auth = 'Basic ' + Base64.strict_encode64( "#{api_key}:#{api_secret}" ).chomp
 				 	@img_check = RestClient.get "https://api.imagga.com/v1/tagging?url=#{image_url}", { :Authorization => auth }
 				 	@img_check= ActiveSupport::JSON.decode(@img_check)
