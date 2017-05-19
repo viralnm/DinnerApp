@@ -17,10 +17,10 @@ class Api::V1::GoogleapiController < Api::BaseController
 		client_id = "SNJXcT5vmW12bA-ChqHVBg"
 		client_secret = "fxeY2Wu0o8cQQg9rdbSWelTur87hTpsNBzqZefUBpydiIaZxOwVzY5gyPtpcA9bn"
 		@array = Array.new
-		if params[flag] == "m"
-			radius = params[radius].to_f * 1609.344
-		elsif params[flag] == "k"
-			radius = params[radius].to_f * 1000
+		if params[:flag] == "m"
+			radius = params[:radius].to_f * 1609.344
+		elsif params[:flag] == "k"
+			radius = params[:radius].to_f * 1000
 		else
 			radius = 40000
 		end
