@@ -25,7 +25,7 @@ class Api::V1::GoogleapiController < Api::BaseController
 			radius = 40000
 		end
 				
-		@places =search("food", params[:latitude],params[:longitude],radius,50,params[:offset])
+		@places =search("food", params[:latitude],params[:longitude],40000,50,params[:offset])
 
 		@response = Restaurant.near([params[:latitude], params[:longitude]], 40000)
 		#push google result in array 
