@@ -25,34 +25,38 @@ class Api::V1::GoogleapiController < Api::BaseController
 			radius = 40000
 		end
 				puts radius
-		@places =search("food", params[:latitude],params[:longitude],radius.to_i,50,params[:offset])
+		@places =search("food", params[:latitude],params[:longitude],radius.to_i,50,params[:offset].to_i)
 
 		@response = Restaurant.near([params[:latitude], params[:longitude]], 40000)
 		#push google result in array 
   	if !@places['businesses'].blank?
   		@places['businesses'].each do |plc|
   			photo = Array.new
-  			f = 1
+  			f = 0
   			if !plc['image_url'].blank?
-  			# 	image_url = plc['image_url']
-					# api_key = 'acc_61d09fb31788cb1'
-					# api_secret = 'e818bc86ebe0f859b8d3a56233578ce0'
-					# auth = 'Basic ' + Base64.strict_encode64( "#{api_key}:#{api_secret}" ).chomp
-				 # 	@img_check = RestClient.get "https://api.imagga.com/v1/tagging?url=#{image_url}", { :Authorization => auth }
-				 # 	@img_check= ActiveSupport::JSON.decode(@img_check)
-				 # 	puts @img_check
-					# @img_check['results'].each do |r|
-					# 	r['tags'].each do |t|
-					# 		if t['tag'] == "food"
-					# 			puts t['tag']
-					# 			f = 1
-					# 		end
-					# 	end
-					# end
+  				image_url = plc['image_url']
+					api_key = 'acc_61d09fb31788cb1'
+					api_secret = 'e818bc86ebe0f859b8d3a56233578ce0'
+					auth = 'Basic ' + Base64.strict_encode64( "#{api_key}:#{api_secret}" ).chomp
+				 	@img_check = RestClient.get "https://api.imagga.com/v1/tagging?url=#{image_url}", { :Authorization => auth }
+				 	@img_check= ActiveSupport::JSON.decode(@img_check)
+				 	puts @img_check
+					@img_check['results'].each do |r|
+						r['tags'].each do |t|
+							if t['tag'] == "food"
+								puts t['tag']
+								f = 1
+							end
+						end
+					end
   				photo << {photo_url: plc['image_url'], photoreference: plc['image_url']}
   			end
   			if f == 1
-	  			address = plc['location']['address1']+","+plc['location']['city']+","+plc['location']['state']+","+plc['location']['zip_code']
+  				address1 = plc['location']['address1']
+  				city = plc['location']['city']
+  				state = plc['location']['state']
+  				zip_code = plc['location']['zip_code']
+	  			address = address1+","+city+","+state+","+zip_code
 	  			@array << {name: plc['name'], formatted_address: address, latitude: plc['coordinates']['latitude'], longitude: plc['coordinates']['longitude'], place_id: plc['id'], rating: plc['rating'], distance: plc['distance'], photos: photo , add_manual: false}  				
   			end
   		end
