@@ -27,28 +27,28 @@ class Api::V1::GoogleapiController < Api::BaseController
 		puts radius
 		@places =search("food", params[:latitude],params[:longitude],radius.to_i,params[:limit].to_i,params[:offset].to_i)
 
-		@response = Restaurant.near([params[:latitude], params[:longitude]], 40000)
+		@response = Restaurant.near([params[:latitude], params[:longitude]], 25)
 		#push google result in array 
   	if !@places['businesses'].blank?
   		@places['businesses'].each do |plc|
   			photo = Array.new
-  			f = 0
+  			f = 1
   			if !plc['image_url'].blank?
-  				image_url = plc['image_url']
-					api_key = 'acc_d78cd87a96a436b'
-					api_secret = '315c62e0d6992680a55fbb073dd338fb'
-					auth = 'Basic ' + Base64.strict_encode64( "#{api_key}:#{api_secret}" ).chomp
-				 	@img_check = RestClient.get "https://api.imagga.com/v1/tagging?url=#{image_url}", { :Authorization => auth }
-				 	@img_check= ActiveSupport::JSON.decode(@img_check)
-				 	puts @img_check
-					@img_check['results'].each do |r|
-						r['tags'].each do |t|
-							if t['tag'] == "food"
-								puts t['tag']
-								f = 1
-							end
-						end
-					end
+  			# 	image_url = plc['image_url']
+					# api_key = 'acc_d78cd87a96a436b'
+					# api_secret = '315c62e0d6992680a55fbb073dd338fb'
+					# auth = 'Basic ' + Base64.strict_encode64( "#{api_key}:#{api_secret}" ).chomp
+				 # 	@img_check = RestClient.get "https://api.imagga.com/v1/tagging?url=#{image_url}", { :Authorization => auth }
+				 # 	@img_check= ActiveSupport::JSON.decode(@img_check)
+				 # 	puts @img_check
+					# @img_check['results'].each do |r|
+					# 	r['tags'].each do |t|
+					# 		if t['tag'] == "food"
+					# 			puts t['tag']
+					# 			f = 1
+					# 		end
+					# 	end
+					# end
   				photo << {photo_url: plc['image_url'], photoreference: plc['image_url']}
   			end
   			if f == 1
