@@ -24,8 +24,8 @@ class Api::V1::GoogleapiController < Api::BaseController
 		else
 			radius = 40000
 		end
-				puts radius
-		@places =search("food", params[:latitude],params[:longitude],radius.to_i,50,params[:offset].to_i)
+		puts radius
+		@places =search("food", params[:latitude],params[:longitude],radius.to_i,params[:limit].to_i,params[:offset].to_i)
 
 		@response = Restaurant.near([params[:latitude], params[:longitude]], 40000)
 		#push google result in array 
