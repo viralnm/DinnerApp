@@ -7,5 +7,6 @@ else
 	json.msg  "places are not available."
 end
 json.total @places['total']
+json.database_total @response_count
 json.results @sorted
 

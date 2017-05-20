@@ -48,6 +48,8 @@ gem 'sprockets', '3.6.3'
 
 gem "paperclip",'~>3.5.2'
 
+gem 'will_paginate'
+
 gem 'paperclip-av-transcoder' 
 gem 'paperclip-ffmpeg' 
 

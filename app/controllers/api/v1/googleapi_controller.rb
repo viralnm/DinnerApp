@@ -19,15 +19,20 @@ class Api::V1::GoogleapiController < Api::BaseController
 		@array = Array.new
 		if params[:flag] == "m"
 			radius = params[:radius].to_f * 1609.344
+			s_radius = params[:radius].to_f
 		elsif params[:flag] == "k"
 			radius = params[:radius].to_f * 1000
+			s_radius = params[:radius].to_f * 0.621371
 		else
 			radius = 40000
+			s_radius = 25
 		end
-		puts radius
-		@places =search("food", params[:latitude],params[:longitude],radius.to_i,params[:limit].to_i,params[:offset].to_i)
+		offset = (params[:page].to_i - 1) * 10
+		puts offset
+		@places =search("food", params[:latitude],params[:longitude],radius.to_i,params[:limit].to_i,offset)
 
-		@response = Restaurant.near([params[:latitude], params[:longitude]], 25)
+		@response_count = Restaurant.near([params[:latitude], params[:longitude]], s_radius).size
+		@response = Restaurant.near([params[:latitude], params[:longitude]], s_radius).paginate :page => params[:page], :per_page => 10
 		#push google result in array 
   	if !@places['businesses'].blank?
   		@places['businesses'].each do |plc|
