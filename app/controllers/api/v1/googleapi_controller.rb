@@ -62,7 +62,19 @@ class Api::V1::GoogleapiController < Api::BaseController
   				city = plc['location']['city']
   				state = plc['location']['state']
   				zip_code = plc['location']['zip_code']
-	  			address = address1+","+city+","+state+","+zip_code
+  				address = ""
+  				if !address1.blank? 
+  						address = address1
+  				end
+  				if !city.blank?
+  					address = address+","+city
+  				end
+  				if !state.blank?
+  					address = address1+","+city+","+state
+  				end
+  				if !state.blank?
+  					address = address1+","+city+","+state+","+zip_code
+  				end
 	  			@array << {name: plc['name'], formatted_address: address, latitude: plc['coordinates']['latitude'], longitude: plc['coordinates']['longitude'], place_id: plc['id'], rating: plc['rating'], distance: plc['distance'], photos: photo , add_manual: false}  				
   			end
   		end
