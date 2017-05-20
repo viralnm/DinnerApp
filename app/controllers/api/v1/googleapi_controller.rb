@@ -70,10 +70,10 @@ class Api::V1::GoogleapiController < Api::BaseController
   					address = address+","+city
   				end
   				if !state.blank?
-  					address = address1+","+city+","+state
+  					address = address+","+state
   				end
   				if !state.blank?
-  					address = address1+","+city+","+state+","+zip_code
+  					address = address+","+zip_code
   				end
 	  			@array << {name: plc['name'], formatted_address: address, latitude: plc['coordinates']['latitude'], longitude: plc['coordinates']['longitude'], place_id: plc['id'], rating: plc['rating'], distance: plc['distance'], photos: photo , add_manual: false}  				
   			end
