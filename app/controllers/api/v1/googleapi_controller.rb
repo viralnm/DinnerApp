@@ -29,10 +29,11 @@ class Api::V1::GoogleapiController < Api::BaseController
 		end
 		offset = (params[:page].to_i - 1) * 10
 		puts offset
+		limit = params[:limit].to_i
 		@places =search("food", params[:latitude],params[:longitude],radius.to_i,params[:limit].to_i,offset)
 
 		@response_count = Restaurant.near([params[:latitude], params[:longitude]], s_radius).size
-		@response = Restaurant.near([params[:latitude], params[:longitude]], s_radius).paginate :page => params[:page], :per_page => 10
+		@response = Restaurant.near([params[:latitude], params[:longitude]], s_radius).paginate :page => params[:page], :per_page => limit
 		#push google result in array 
   	if !@places['businesses'].blank?
   		@places['businesses'].each do |plc|
