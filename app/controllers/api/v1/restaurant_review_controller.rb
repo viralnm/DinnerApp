@@ -7,6 +7,6 @@ class Api::V1::RestaurantReviewController < Api::BaseController
 
   private
     def review_params 
-      params.require(:user).permit(:name,:text, :rating, :email, :restaurant_id, :photo_file_name)
+      # params.require(:user).permit(:name,:text, :rating, :email, :restaurant_id, :photo_file_name)
     end
 end

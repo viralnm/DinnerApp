@@ -16,7 +16,7 @@ RailsAdmin.config do |config|
 config.included_models = [ User, Admin, Restaurant,RestaurantPhoto, RestaurantReview]
   ## == Pundit ==
   # config.authorize_with :pundit
-
+config.default_items_per_page = 10
   ## == PaperTrail ==
   # config.audit_with :paper_trail, 'User', 'PaperTrail::Version' # PaperTrail >= 3.0.0
 
