@@ -92,8 +92,8 @@ class Api::V1::GoogleapiController < Api::BaseController
   	# 			@array << {name: res.name, formatted_address: res.formatted_address, latitude: res.latitude, longitude: res.longitude, place_id: res.id, rating: res.rating, distance: res.distance, photos: photo , add_manual: true}
   	# 		end
   			
-  		end
-  	end
+  	# 	end
+  	# end
 
 
   	@sorted = @array.sort_by { |k| k[:distance] }
