@@ -80,7 +80,7 @@ class Api::V1::GoogleapiController < Api::BaseController
   		end
   	end
   # push local response in array
-  
+
   	# if  @response.size > 0
   	# 	@response.each do |res|
   	# 		photo = Array.new
@@ -92,7 +92,7 @@ class Api::V1::GoogleapiController < Api::BaseController
   	# 			@array << {name: res.name, formatted_address: res.formatted_address, latitude: res.latitude, longitude: res.longitude, place_id: res.id, rating: res.rating, distance: res.distance, photos: photo , add_manual: true}
   	# 		end
   			
-  	# 	end
+  		end
   	end
 
 
