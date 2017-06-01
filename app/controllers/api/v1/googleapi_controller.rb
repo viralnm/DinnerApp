@@ -80,18 +80,19 @@ class Api::V1::GoogleapiController < Api::BaseController
   		end
   	end
   # push local response in array
-  	if  @response.size > 0
-  		@response.each do |res|
-  			photo = Array.new
-  			db_photos = res.restaurant_photos.all
-  			if !db_photos.blank?
-  				db_photos.each do |ph|
-  					photo << {photo_url: ph.photo.url, photoreference: ph.id}
-  				end
-  				@array << {name: res.name, formatted_address: res.formatted_address, latitude: res.latitude, longitude: res.longitude, place_id: res.id, rating: res.rating, distance: res.distance, photos: photo , add_manual: true}
-  			end
+  
+  	# if  @response.size > 0
+  	# 	@response.each do |res|
+  	# 		photo = Array.new
+  	# 		db_photos = res.restaurant_photos.all
+  	# 		if !db_photos.blank?
+  	# 			db_photos.each do |ph|
+  	# 				photo << {photo_url: ph.photo.url, photoreference: ph.id}
+  	# 			end
+  	# 			@array << {name: res.name, formatted_address: res.formatted_address, latitude: res.latitude, longitude: res.longitude, place_id: res.id, rating: res.rating, distance: res.distance, photos: photo , add_manual: true}
+  	# 		end
   			
-  		end
+  	# 	end
   	end
 
 
