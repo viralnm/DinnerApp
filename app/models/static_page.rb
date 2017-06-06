@@ -14,10 +14,9 @@ class StaticPage < ActiveRecord::Base
 	      field :name do
 	        help 'Enter Page Name'
 	      end
-	      field :url do
-	        help 'upload Photo'
+	      field :content, :ck_editor, :text do 
+	      	help ' '
 	      end
-	      field :content, :ck_editor 
 		end
 	end
 end

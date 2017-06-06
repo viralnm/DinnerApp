@@ -30,7 +30,7 @@ RailsAdmin.config do |config|
     dashboard                     # mandatory
     index                         # mandatory
     new do
-      except ['Admin','User','RestaurantReview']
+      except ['Admin','User','RestaurantReview', 'StaticPage']
     end
     export
     bulk_delete
@@ -38,7 +38,9 @@ RailsAdmin.config do |config|
     edit do
       except ['User','RestaurantReview']
       end
-    delete
+    delete do
+      except ['StaticPage']
+    end
     show_in_app
 
     ## With an audit adapter, you can add:
