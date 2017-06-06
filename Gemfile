@@ -21,7 +21,7 @@ gem 'devise'
 
 gem 'rails_admin'
 gem 'opro'
-
+gem 'ckeditor'
 
 gem "http"
 

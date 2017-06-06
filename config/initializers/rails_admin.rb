@@ -13,10 +13,10 @@ RailsAdmin.config do |config|
   ## == Cancan ==
   # config.authorize_with :cancan
 
-config.included_models = [ User, Admin, Restaurant,RestaurantPhoto]
+  config.included_models = [ User, Admin, Restaurant,RestaurantPhoto, StaticPage]
   ## == Pundit ==
   # config.authorize_with :pundit
-config.default_items_per_page = 10
+  config.default_items_per_page = 10
   ## == PaperTrail ==
   # config.audit_with :paper_trail, 'User', 'PaperTrail::Version' # PaperTrail >= 3.0.0
 
