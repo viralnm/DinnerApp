@@ -27,9 +27,10 @@ class Api::V1::GoogleapiController < Api::BaseController
 			radius = 40000
 			s_radius = 25
 		end
-		offset = (params[:page].to_i - 1) * 10
+		rand_no = rand(1...200)
+		offset = rand_no * 5
 		puts offset
-		limit = params[:limit].to_i
+		limit = 5
 		@places =search("food", params[:latitude],params[:longitude],radius.to_i,params[:limit].to_i,offset)
 
 		@response_count = Restaurant.near([params[:latitude], params[:longitude]], s_radius).size
