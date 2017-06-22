@@ -29,6 +29,7 @@ Rails.application.routes.draw do
             post :logout
           end
       end
+      resources :foods
     end
   end
 

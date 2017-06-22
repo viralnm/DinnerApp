@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170606153522) do
+ActiveRecord::Schema.define(version: 20170622103109) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -44,6 +44,21 @@ ActiveRecord::Schema.define(version: 20170606153522) do
   end
 
   add_index "ckeditor_assets", ["type"], name: "index_ckeditor_assets_on_type", using: :btree
+
+  create_table "foods", force: :cascade do |t|
+    t.string   "name",               limit: 255
+    t.integer  "user_id",            limit: 4
+    t.integer  "restaurant_id",      limit: 4
+    t.string   "photo_file_name",    limit: 255
+    t.string   "photo_content_type", limit: 255
+    t.string   "photo_file_size",    limit: 255
+    t.string   "photo_updated_at",   limit: 255
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  add_index "foods", ["restaurant_id"], name: "index_foods_on_restaurant_id", using: :btree
+  add_index "foods", ["user_id"], name: "index_foods_on_user_id", using: :btree
 
   create_table "opro_auth_grants", force: :cascade do |t|
     t.string   "code",                    limit: 255

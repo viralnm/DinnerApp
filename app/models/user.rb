@@ -1,9 +1,12 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  has_many :foods
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-          has_attached_file :photo, :styles => {:avatar => "100x100#"}
+
+  has_attached_file :photo, :styles => {:avatar => "100x100#"}
+
  	rails_admin do
  		list do
  			field :first_name

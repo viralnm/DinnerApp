@@ -13,7 +13,7 @@ RailsAdmin.config do |config|
   ## == Cancan ==
   # config.authorize_with :cancan
 
-  config.included_models = [ User, Admin, Restaurant,RestaurantPhoto, StaticPage]
+  config.included_models = [ User, Admin, Restaurant,RestaurantPhoto, StaticPage, Food]
   ## == Pundit ==
   # config.authorize_with :pundit
   config.default_items_per_page = 10

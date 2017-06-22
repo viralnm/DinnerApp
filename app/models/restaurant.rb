@@ -1,6 +1,7 @@
 class Restaurant < ActiveRecord::Base
 	has_many :restaurant_photos, dependent: :destroy
 	has_many :restaurant_reviews, dependent: :destroy
+	has_many :foods, dependent: :destroy
 	validates_presence_of :name, :message => "Name can't be blank"
 	validates_presence_of :formatted_address, :message => "Address can't be blank"
 
