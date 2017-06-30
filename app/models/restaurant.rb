@@ -43,6 +43,9 @@ class Restaurant < ActiveRecord::Base
 	      field :add_manual do
 	        help ' '
 	      end
+	      field :photo do
+	        help ' '
+	      end
 	    end
 
 	    edit do

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: 
+  restaurant: 
+  comments: MyString
+  rating: 1.5
+
+two:
+  user: 
+  restaurant: 
+  comments: MyString
+  rating: 1.5

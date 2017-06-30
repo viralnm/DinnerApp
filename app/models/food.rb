@@ -1,7 +1,13 @@
 class Food < ActiveRecord::Base
-	has_attached_file :photo, :styles => {:avatar => "100x100#"}
+
 	belongs_to :restaurant
 	belongs_to :user
+	has_many :food_reviews
+	has_attached_file :photo, :styles => {:avatar => "100x100#"}
+
+geocoded_by :formatted_address, :skip_index => true
+   after_validation :geocode 
+
 	rails_admin do
  		list do
  			field :name
@@ -25,6 +31,9 @@ class Food < ActiveRecord::Base
       field :name do
         help 'enter name'
       end
+      field :formatted_address do
+        help 'Enter formatted address'
+      end
       field :photo do
         help 'upload Photo'
       end 
@@ -41,6 +50,9 @@ class Food < ActiveRecord::Base
       end
       field :name do
         help 'enter name'
+      end
+      field :formatted_address do
+        help 'Enter formatted address'
       end
       field :photo do
         help 'upload Photo'

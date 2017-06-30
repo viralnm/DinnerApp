@@ -20,6 +20,6 @@ class Api::V1::FoodsController < Api::BaseController
 
   private
     def food_params 
-      params.require(:food).permit(:name,:user_id, :restaurant_id, :photo_file_name)
+      params.require(:food).permit(:name,:user_id, :restaurant_id, :photo_file_name, :formatted_address, :latitude, :longitude)
     end
 end
