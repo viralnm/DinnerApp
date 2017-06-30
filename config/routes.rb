@@ -30,6 +30,7 @@ Rails.application.routes.draw do
           end
       end
       resources :foods
+      resources :food_reviews
     end
   end
 

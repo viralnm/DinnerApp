@@ -7,7 +7,8 @@ class Api::V1::FoodsController < Api::BaseController
 			respond_to do |format|			
 				format.json { render :json => {action: 'food_add',
 		              response: 'true',
-		             msg: 'food was added sucessfully.'} }
+		             msg: 'food was added sucessfully.',
+		             food: { id: @food.id , name: @food.name}} }
 			end
 		else
 			respond_to do |format|			
